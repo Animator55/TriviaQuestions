@@ -3,7 +3,7 @@ import { getQuestions } from "../logic/api"
 import { categoryType, questionType } from "../vite-env"
 import cleanText from "../logic/cleanText"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons"
+import { faCircleNotch, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 
 type Props = {
     difficulty: string
@@ -35,7 +35,10 @@ export default function TriviaGame({difficulty, category, backToMenu}: Props) {
         if (result[index] !== undefined || answered) return
 
         let button = document.getElementById("option-button_"+i)
-        if(button) button.style.background = val ? "green" : "red"
+        if(button) {
+            button.style.background = val ? "#09c721" : "#ff4f4f"
+            button.classList.add("pressed")
+        }
         let bar = document.querySelector(".progress-bar") as HTMLDivElement
         if(bar) bar.style.width = (index*10+10)+"%"
 
@@ -97,10 +100,17 @@ export default function TriviaGame({difficulty, category, backToMenu}: Props) {
                 <div className="progress-container">
                     <div className="progress-bar" style={{width: index*10+"%"}}></div>
                 </div>
-                <div>
-                    <p>{trivia[index].category}</p>
-                    <p>{trivia[index].difficulty}</p>
-                    <h3>{cleanText(trivia[index].question)}</h3>
+                <div className="header-content">
+                    <nav className="header-nav">
+                        <p>
+                            {trivia[index].difficulty}
+                        </p>
+                        <p>{cleanText(trivia[index].category)}</p>
+                        <button onClick={()=>{backToMenu()}}>
+                            <FontAwesomeIcon icon={faRightFromBracket}/>
+                        </button>
+                    </nav>
+                    <h3 key={Math.random()} className="show-texting">{cleanText(trivia[index].question)}</h3>
                 </div>
             </header>
             <Options
@@ -110,12 +120,12 @@ export default function TriviaGame({difficulty, category, backToMenu}: Props) {
         </section>
         :
             <section className="finish">
-                <h3>You Finished!</h3>
+                <h2>You Finished!</h2>
                 <p>Results: {count()} / 10</p>
                 <p>
                     In {resultTime()}
                 </p>
-                <button onClick={()=>{backToMenu()}}>
+                <button className="start-trivia" onClick={()=>{backToMenu()}}>
                     Return to Menu
                 </button>
             </section>
