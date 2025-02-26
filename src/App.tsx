@@ -10,7 +10,7 @@ export default function App() {
   const [page, setPage] = React.useState("menu")
   const [difficulty, setDiff] = React.useState("easy")
   const [category, setCat] = React.useState<categoryType>(
-    { name: "All Categories", icon: faQuestion, index: undefined },
+    { name: "All Categories", icon: faQuestion, index: undefined, color: "#A8A8A8"},
   )
 
   return <main>
