@@ -12,4 +12,4 @@ export type questionType = {
     type: string
 }
 
-export type categoryType = { name: string, icon: IconDefinition, index: undefined | number }
+export type categoryType = { name: string, icon: IconDefinition, index: undefined | number, color: string }
